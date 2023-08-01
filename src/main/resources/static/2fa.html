@@ -1,0 +1,42 @@
+
+물론, 2차 인증 페이지도 HTML 파일로 만들어보겠습니다. 2차 인증 페이지에는 인증 코드를 입력하는 폼을 제공하고, 해당 코드를 검증하는 기능을 구현합니다.
+
+2fa.html 파일을 생성하고 다음과 같이 작성합니다:
+
+html
+Copy code
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Two-Factor Authentication</title>
+</head>
+<body>
+<h2>Two-Factor Authentication</h2>
+<form id="verificationForm">
+  <label for="verificationCode">Verification Code:</label>
+  <input type="text" id="verificationCode" name="verificationCode" required>
+  <br>
+  <button type="button" onclick="verifyCode()">Verify Code</button>
+</form>
+
+<script>
+  function verifyCode() {
+    const verificationCode = document.getElementById('verificationCode').value;
+    fetch('/api/google-auth/verifyCode?code=' + verificationCode, {
+      method: 'POST'
+    })
+            .then(response => response.json())
+            .then(isValid => {
+              if (isValid) {
+                alert('Verification successful!');
+              } else {
+                alert('Invalid verification code. Try again!');
+              }
+            })
+            .catch(error => {
+              console.error('Error verifying code:', error);
+            });
+  }
+</script>
+</body>
+</html>

@@ -19,8 +19,8 @@ public class JoinService {
         return mapper.joinUser(dto);
     }
 
-    public void loginUser(){
-
-        mapper.loginUser();
-    }
+//    public void loginUser(){
+//
+//        mapper.loginUser();
+//    }
 }
